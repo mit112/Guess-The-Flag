@@ -16,6 +16,20 @@ struct ContentView: View {
     @State private var questinNumber = 0
     @State private var gameOver = false
     @State private var finalScore = 0
+    
+    struct FlagImage: View {
+        var country: String
+        var body: some View {
+            Image(country)
+                .clipShape(.capsule)
+                .shadow(radius: 10)
+        }
+    }
+    
+    
+    
+    
+    
     var body: some View {
         ZStack {
             Color(red: 245.0 / 255.0, green: 245.0 / 255.0, blue: 220.0 / 255.0)
@@ -25,6 +39,7 @@ struct ContentView: View {
                 Spacer()
                 VStack {
                     Text("Can you guess the flag of")
+//                        .titleStyle()
                         .font(.subheadline.weight(.semibold))
                     Text(countries[correctAnswer])
                         .font(.largeTitle.weight(.semibold))
@@ -33,9 +48,7 @@ struct ContentView: View {
                     Button {
                         flagTapped(number)
                     } label: {
-                        Image(countries[number])
-                            .clipShape(.capsule)
-                            .shadow(radius: 10)
+                        FlagImage(country: countries[number])
                     }
                 }
                 Spacer()
@@ -78,6 +91,20 @@ struct ContentView: View {
             score = 0
             questinNumber = 0
         }
+    }
+}
+
+struct Title: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.largeTitle)
+            .foregroundStyle(.blue)
+        
+    }
+}
+extension View {
+    func titleStyle() -> some View {
+        modifier(Title())
     }
 }
 
